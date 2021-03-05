@@ -22,8 +22,9 @@ const Form = () => {
     const { addTransaction } = useContext(ExpenseTrackerContext); 
     const { segment } = useSpeechContext(); 
     const createTransaction = () => {
-        const transaction = { ...formData, amount: Number(formData.amount), id: uuidv4() }
+        if(Number.isNaN(Number(formData.amount)) || !formData.date.includes('-')) return;
         
+        const transaction = { ...formData, amount: Number(formData.amount), id: uuidv4() }
         addTransaction(transaction);
         setFormData(initialState)
     } 
